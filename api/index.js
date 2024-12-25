@@ -20,6 +20,7 @@ const designersRoutes = require("../routes/designersRoutes");
 const allowedOrigins = [
   "http://localhost:3000",
   "https://design-lab1.netlify.app",
+  "http://design-lab1.netlify.app",
   "https://design-lab.ge",
 ];
 
