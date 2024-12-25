@@ -19,14 +19,8 @@ const designersRoutes = require("../routes/designersRoutes");
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://design-union.netlify.app",
+  "https://design-lab1.netlify.app/",
   "https://design-lab.ge",
-  "https://ohmenergy.ge",
-  "https://zpm.znt.temporary.site",
-  "https://designersunion.ge",
-  "http://designersunion.ge",
-  "http://www.designersunion.ge",
-  "https://www.designersunion.ge",
 ];
 
 //middlewares
