@@ -1,4 +1,5 @@
 const Visit = require("../models/Visit"); // Adjust the path to your Visit model
+const { sendMail } = require("./mailController");
 
 // Create a new visit
 const bookVisit = async (req, res) => {
@@ -23,6 +24,35 @@ const bookVisit = async (req, res) => {
     });
 
     await newVisit.save();
+
+    // Convert visitDate to Georgian time
+    const visitDateObj = new Date(visitDate);
+    const georgianTimeFormatter = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Tbilisi", // Georgian time zone
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const endGeorgianTimeFormatter = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Tbilisi", // Georgian time zone
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const georgianTime = georgianTimeFormatter.format(visitDateObj);
+
+    // Calculate end time by adding 30 minutes for each "selectedTime" unit
+    const endTimeObj = new Date(visitDateObj);
+    endTimeObj.setMinutes(endTimeObj.getMinutes() + selectedTime * 30);
+
+    const endGeorgianTime = endGeorgianTimeFormatter.format(endTimeObj);
+
+    await sendMail(
+      `${georgianTime} - ${endGeorgianTime} \nName:  ${name} \nMail:  ${email} \n+Tel:  ${phone}\n\nMessage:  ${message}`
+    );
+
     return res
       .status(201)
       .json({ message: "Visit booked successfully!", visit: newVisit });
@@ -42,7 +72,7 @@ const getAllVisits = async (req, res) => {
 
     // Query for visits where visitDate is in the future (greater than or equal to the current time)
     const visits = await Visit.find({ visitDate: { $gte: currentTime } });
-    
+
     return res.status(200).json(visits);
   } catch (error) {
     console.error("Error retrieving visits:", error);
@@ -69,14 +99,12 @@ const getBookedTimes = async (req, res) => {
 
 const deleteVisit = async (req, res) => {
   try {
-    const id = req.params.id
+    const id = req.params.id;
     const visit = await Visit.findByIdAndDelete(id);
     return res.status(200).json(visit);
   } catch (error) {
     console.error("Error deleting visit:", error);
-    return res
-      .status(500)
-      .json({ customError: "Failed to delete visit." });
+    return res.status(500).json({ customError: "Failed to delete visit." });
   }
 };
 
@@ -84,5 +112,5 @@ module.exports = {
   bookVisit,
   getAllVisits,
   getBookedTimes,
-  deleteVisit
+  deleteVisit,
 };
