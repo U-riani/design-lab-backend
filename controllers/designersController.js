@@ -1,5 +1,7 @@
 const Designers = require("../models/Designers");
 const { deleteFromFirebase } = require("../midllewares/imageMiddleware"); // Import the delete function
+const { sendMail } = require("./mailController");
+
 
 // Get all Designers
 const getAllDesigners = async (req, res) => {
@@ -55,6 +57,13 @@ const createDesigner = async (req, res) => {
 
     const newDesigners = new Designers(designerData);
     await newDesigners.save();
+
+    await sendMail(
+      "sandropapiashvili@gmail.com",
+      "Design-Lab designer registration",
+      `${designerData.name.ge} wants to register`
+    );
+
     return res.status(200).json(newDesigners);
   } catch (error) {
     console.error("Error in create Designer:", error);

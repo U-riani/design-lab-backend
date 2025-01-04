@@ -10,11 +10,11 @@ const transporter = nodemailer.createTransport({
 });
 
 // Step 2: Define the sendMail function
-const sendMail = async (text) => {
+const sendMail = async (sendTo, subject, text) => {
   const mailOptions = {
     from: "sandropapiashvili@gmail.com", // Sender address
-    to: "sandropapiashvili@gmail.com",
-    subject: "Design-lab Reservation", // Subject line
+    to: sendTo,//"sandropapiashvili@gmail.com",
+    subject: subject,  //"Design-lab Reservation",  Subject line
     text, // Plain text body
   };
 

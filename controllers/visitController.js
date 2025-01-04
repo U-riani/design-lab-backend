@@ -50,8 +50,10 @@ const bookVisit = async (req, res) => {
     const endGeorgianTime = endGeorgianTimeFormatter.format(endTimeObj);
 
     await sendMail(
+      "sandropapiashvili@gmail.com",
+      "Design-lab Reservation",
       `${georgianTime} - ${endGeorgianTime} \nName:  ${name} \nMail:  ${email} \n+Tel:  ${phone}\n\nMessage:  ${message}`
-    );
+    ); 
 
     return res
       .status(201)
