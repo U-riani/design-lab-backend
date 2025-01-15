@@ -43,6 +43,7 @@ const createDesigner = async (req, res) => {
       },
       activeStatus: req.body.activeStatus,
       companyPerson: req.body.companyPerson,
+      phone: req.body.phone,
       text: {
         ge: req.body.text ? req.body.text.ge : "",
         en: req.body.text ? req.body.text.en : "",
@@ -110,6 +111,7 @@ const updateDesigner = async (req, res) => {
         en: req.body.name.en,
         ge: req.body.name.ge,
       },
+      phone: req.body.phone,
       companyPerson: req.body.companyPerson,
       text: {
         en: req.body.text.en,
