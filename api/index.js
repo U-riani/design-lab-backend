@@ -22,6 +22,11 @@ const allowedOrigins = [
   "https://design-lab1.netlify.app",
   "http://design-lab1.netlify.app",
   "https://design-lab.ge",
+  "http://design-lab.ge",
+  "www.design-lab.ge",
+  "design-lab.ge",
+  "http://www.design-lab.ge",
+  "https://www.design-lab.ge"
 ];
 
 //middlewares
