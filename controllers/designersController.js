@@ -69,6 +69,11 @@ const createDesigner = async (req, res) => {
       "Design-Lab designer registration",
       `${designerData.name.ge} wants to register`
     );
+    await sendMail(
+      "designersunion.geo@gmail.com",
+      "Design-Lab designer registration",
+      `${designerData.name.ge} wants to register`
+    );
 
     return res.status(200).json(newDesigners);
   } catch (error) {

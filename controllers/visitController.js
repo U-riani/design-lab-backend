@@ -59,6 +59,11 @@ const bookVisit = async (req, res) => {
       "Design-lab Reservation",
       `${georgianTime} - ${endGeorgianTime} \nName:  ${name} \nMail:  ${email} \n+Tel:  ${phone}\n\nMessage:  ${message}`
     ); 
+    await sendMail(
+      "designersunion.geo@gmail.com",
+      "Design-lab Reservation",
+      `${georgianTime} - ${endGeorgianTime} \nName:  ${name} \nMail:  ${email} \n+Tel:  ${phone}\n\nMessage:  ${message}`
+    ); 
 
     return res
       .status(201)
